@@ -31,6 +31,10 @@ h3 {
 .code {
     margin: 20px 0px;
 }
+#messageArea {
+    width: 100%;
+    display: block;
+}
 #message {
     width: 300px;
     height: 36px;
@@ -52,4 +56,33 @@ h3 {
     border-radius: 4px;
     font-family: "Be Vietnam Pro", sans-serif;
     font-size: 14px;
+}
+.bgModal {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.content {
+    position: relative;
+    background: #fff;
+    border-radius: 8px;
+    width: 90vw;
+    padding: 32px;
+}
+.close {
+    position: absolute;
+    right: 24px;
+    top: 24px;
+    padding: 8px;
+}
+.icon {
+    width: 16px;
+    height: 16px;
 }

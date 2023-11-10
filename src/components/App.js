@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/App.css";
 
 const App = function () {
+    const [contentModal, setContentModal] = useState(null);
+
     useEffect(() => {
         /**
          * Send information from parent window to child iframe
@@ -19,6 +21,9 @@ const App = function () {
          * Send information from child to parent.
          */
         const onMessageHandler = (event) => {
+            if (event?.data?.type === "dialog") {
+                setContentModal(event?.data?.content);
+            }
             messageArea.innerText = typeof event.data === "string" ? event.data : JSON.stringify(event.data);
         };
 
@@ -30,6 +35,10 @@ const App = function () {
             window.removeEventListener("message", onMessageHandler);
         };
     }, []);
+
+    const oncloseModal = () => {
+        setContentModal("");
+    };
 
     return (
         <div className="App">
@@ -47,6 +56,16 @@ const App = function () {
                 title="Child iframe"
                 src="http://192.168.0.95:3000/"
             />
+            {contentModal && (
+                <dialog className="bgModal">
+                    <div className="content">
+                        <div className="close" onClick={oncloseModal}>
+                            <img src="close.svg" alt="" className="icon" />
+                        </div>
+                        <div dangerouslySetInnerHTML={{ __html: contentModal }} />
+                    </div>
+                </dialog>
+            )}
         </div>
     );
 };
